@@ -3,6 +3,8 @@ import Cart from "../Cart/Cart";
 import { useEffect } from "react";
 // import './Home.css'
 import { FaDollarSign, FaBookOpen } from 'react-icons/fa';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
@@ -10,7 +12,12 @@ const Home = () => {
 
     const [allCourses, setAllCourses] = useState([]);
     const [selectCourses, setSelectCourses] = useState([]);
-    
+    const [totalCreditHour, setTotalCreditHour] = useState(0);
+    const [remainingCreditHour, setRemainingCreditHour] = useState(20);
+    const [totalPrice, setTotalPrice] = useState(0);
+
+
+    const maximumMyCreditHourInCart = 20;
 
     useEffect(() => {
         fetch('./data.json')
@@ -21,11 +28,69 @@ const Home = () => {
 
     const handleMySelectedCourses = (course) => {
         // console.log(course);
-        const newSelectCourses = [...selectCourses, course]
-        setSelectCourses(newSelectCourses);
-        
+        const isExistInCart = selectCourses.find(item => item.id === course.id);
+        let totalCreditHourInCart = course.credit;
+        let totalPriceInCart = course.price;
+
+
+        if (isExistInCart) {
+            // return alert('You can add the course into cart only 1 time');
+            toast.warn('You can add the course into cart only 1 time', {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
+        }
+        else {
+            selectCourses.forEach(item => {
+                totalCreditHourInCart = totalCreditHourInCart + item.credit;
+                totalPriceInCart = totalPriceInCart + item.price;
+            })
+
+            let remainingMyCreditHourInCart = maximumMyCreditHourInCart - totalCreditHourInCart;
+            if (totalCreditHourInCart > 20) {
+                // return alert('Sorry, you can not take course maximum 20 credit hour');
+                toast.info('Sorry! you can not take course more than 20 credit hour', {
+                    position: "top-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                });
+            }
+            else {
+                setRemainingCreditHour(remainingMyCreditHourInCart);
+                setTotalCreditHour(totalCreditHourInCart)
+                setTotalPrice(totalPriceInCart);
+                const newSelectCourses = [...selectCourses, course]
+                setSelectCourses(newSelectCourses);
+
+            }
+            if (remainingMyCreditHourInCart === 0) {
+                // return alert('credit hr is not less than 0');
+                toast.info('Credit hour should not be less than 0', {
+                    position: "top-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                });
+            }
+        }
+
     }
-    
+
     return (
         <div className="bg-[#F3F3F3]">
             <h1 className="pt-12 mb-8 text-2xl font-bold text-[#1C1B1B]">Course Registration</h1>
@@ -45,7 +110,7 @@ const Home = () => {
                                         <h2 className="card-title text-lg font-semibold text-[#1C1B1B]">{course.course_name}</h2>
 
                                         <p className="text-justify text-sm text-[#1C1B1B] font-normal">{course.details.slice(0, 60)}...
-                                        {/* Open the modal using document.getElementById('ID').showModal() method */}
+                                            {/* Open the modal using document.getElementById('ID').showModal() method */}
                                             <button className="btn btn-secondary text-white w-full mt-4 mb-4" onClick={() => document.getElementById(course.id).showModal()}>See more</button>
                                             <dialog id={course.id} className="modal modal-bottom sm:modal-middle">
                                                 <div className="modal-box">
@@ -89,11 +154,18 @@ const Home = () => {
                 {/* cart starts here */}
                 <div className="w-1/3 ml-12">
                     <Cart
-                        selectCourses={selectCourses}></Cart>
+                        selectCourses={selectCourses}
+                        totalCreditHour={totalCreditHour}
+                        remainingCreditHour={remainingCreditHour}
+                        totalPrice={totalPrice}></Cart>
                 </div>
                 {/* cart ends here */}
             </div>
+
+            <ToastContainer />
+
         </div>
+
     );
 };
 

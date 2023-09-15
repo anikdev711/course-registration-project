@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 
 
-const Cart = ({ selectCourses }) => {
+const Cart = ({ selectCourses, totalCreditHour, remainingCreditHour, totalPrice }) => {
     // console.log(selectCourses);
 
 
@@ -11,7 +11,7 @@ const Cart = ({ selectCourses }) => {
             <div className="card pt-1 w-72 bg-base-100 shadow-xl -ml-10 md:ml-28 lg:ml-16">
 
                 <div className="card-body w-72">
-                    <h3 className='-ml-32 text-[#2F80ED] text-lg font-bold'>Credit Hour Remaining</h3>
+                    <h3 className='-ml-20 text-[#2F80ED] text-lg font-bold'>Credit Hour Remaining {remainingCreditHour} hr</h3>
                     <hr className='-ml-12 border-gray-400' />
                     <h3 className='-ml-48 text-[#1C1B1B] text-xl font-bold'>Course Name</h3>
                     <div>
@@ -22,9 +22,9 @@ const Cart = ({ selectCourses }) => {
                     }
                     </div>
                     <hr className='-ml-12 border-gray-400' />
-                    <h3 className='-ml-44 text-base font-medium text-[#1C1B1B]'>Total Credit Hour :</h3>
+                    <h3 className='-ml-36 text-base font-medium text-[#1C1B1B]'>Total Credit Hour : {totalCreditHour}</h3>
                     <hr className='-ml-12 border-gray-400' />
-                    <h3 className='-ml-56 text-base text-[#1C1B1B] font-semibold'>Total Price :</h3>
+                    <h3 className='-ml-32 text-base text-[#1C1B1B] font-semibold'>Total Price :{totalPrice} USD</h3>
 
                 </div>
 
@@ -35,6 +35,9 @@ const Cart = ({ selectCourses }) => {
 };
 
 Cart.propTypes = {
-    selectCourses: PropTypes.object.isRequired
+    selectCourses: PropTypes.object.isRequired,
+    totalCreditHour: PropTypes.number.isRequired,
+    remainingCreditHour: PropTypes.number.isRequired,
+    totalPrice: PropTypes.number.isRequired
 }
 export default Cart;
