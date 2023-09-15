@@ -9,6 +9,8 @@ import { FaDollarSign, FaBookOpen } from 'react-icons/fa';
 const Home = () => {
 
     const [allCourses, setAllCourses] = useState([]);
+    const [selectCourses, setSelectCourses] = useState([]);
+    
 
     useEffect(() => {
         fetch('./data.json')
@@ -17,11 +19,18 @@ const Home = () => {
     }, [])
     // console.log(allCourses);
 
+    const handleMySelectedCourses = (course) => {
+        // console.log(course);
+        const newSelectCourses = [...selectCourses, course]
+        setSelectCourses(newSelectCourses);
+        
+    }
+    
     return (
         <div className="bg-[#F3F3F3]">
             <h1 className="pt-12 mb-8 text-2xl font-bold text-[#1C1B1B]">Course Registration</h1>
 
-            <div className="flex flex-col lg:flex-row w-full mx-8 md:mx-12 lg:mx-10">
+            <div className="flex flex-col lg:flex-row w-full mx-8 md:mx-12 lg:mx-5">
                 {/* card starts here */}
                 <div className="w-2/3">
 
@@ -35,7 +44,8 @@ const Home = () => {
                                     <div className="card-body items-center text-center">
                                         <h2 className="card-title text-lg font-semibold text-[#1C1B1B]">{course.course_name}</h2>
 
-                                        <p className="text-justify text-sm text-[#1C1B1B] font-normal">{course.details.slice(0, 60)}...{/* Open the modal using document.getElementById('ID').showModal() method */} 
+                                        <p className="text-justify text-sm text-[#1C1B1B] font-normal">{course.details.slice(0, 60)}...
+                                        {/* Open the modal using document.getElementById('ID').showModal() method */}
                                             <button className="btn btn-secondary text-white w-full mt-4 mb-4" onClick={() => document.getElementById(course.id).showModal()}>See more</button>
                                             <dialog id={course.id} className="modal modal-bottom sm:modal-middle">
                                                 <div className="modal-box">
@@ -65,7 +75,7 @@ const Home = () => {
                                         </div>
 
                                         <div className="card-actions">
-                                            <button className="btn btn-accent text-white w-64">Select</button>
+                                            <button onClick={() => handleMySelectedCourses(course)} className="btn btn-accent text-white w-64">Select</button>
                                         </div>
                                     </div>
                                 </div>
@@ -77,8 +87,9 @@ const Home = () => {
                 {/* card ends here */}
 
                 {/* cart starts here */}
-                <div className="w-1/3">
-                    <Cart></Cart>
+                <div className="w-1/3 ml-12">
+                    <Cart
+                        selectCourses={selectCourses}></Cart>
                 </div>
                 {/* cart ends here */}
             </div>
