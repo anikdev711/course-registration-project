@@ -1,5 +1,5 @@
 
-Question and Answers 
+Question and Answer 
 
 Question-1: Add at least 3 Project features
 
@@ -13,7 +13,7 @@ Answer: The course registration project is done using React JS, Tailwind CSS, an
 
 Question-2: Discuss how you managed the state in your assignment project.
 
-Answer: Components in React need to remember things, for example, course registration carts. This is actually a type of memory. This type of component-specific memory in React is called state. To manage the states in this project, the state hook is used. It has two things, basically. The first one is a state variable, which retains data or values between renders. Another one is called the state setter function, which updates the variable and triggers React to render the component again when necessary. The differences between variable and useState are that variable cannot preserve data and cannot trigger React to render. In contrast, useState can preserve data and trigger React to render with the help of the setter function. In this project, the state hook is used for state management.
+Answer: Components in React need to remember things, for example, course registration carts. This is actually a type of memory. This type of component-specific memory in React is called state. To manage the states in this project, the useState hook is used. It has two things, basically. The first one is a state variable, which retains data or values between renders. Another one is called the state setter function, which updates the variable and triggers React to render the component again when necessary. The differences between variable and useState are that variable cannot preserve data and cannot trigger React to render. In contrast, useState can preserve data and trigger React to render with the help of the setter function. In this project, the useState hook is used for state management.
 * The data is fetched from the API and stored in setAllCourses. By using the allCourses state, we can see all the courses in the API. We can handle them according to our needs.
 * The selected courses are stored in setSelectCourses. selectCourses retains the data. By using this state management, we can keep track of the selected courses and update them when they are added.
 * The total selected course credit hours are stored in the setTotalCreditHour. By using totalCreditHour, a condition is set that a maximum of 20 credit hours can be taken and added to the cart. The initial value of useState is 0.

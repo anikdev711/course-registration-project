@@ -6,8 +6,6 @@ import { FaDollarSign, FaBookOpen } from 'react-icons/fa';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-
-
 const Home = () => {
 
     const [allCourses, setAllCourses] = useState([]);
@@ -15,8 +13,6 @@ const Home = () => {
     const [totalCreditHour, setTotalCreditHour] = useState(0);
     const [remainingCreditHour, setRemainingCreditHour] = useState(20);
     const [totalPrice, setTotalPrice] = useState(0);
-
-
     const maximumMyCreditHourInCart = 20;
 
     useEffect(() => {
@@ -32,10 +28,9 @@ const Home = () => {
         let totalCreditHourInCart = course.credit;
         let totalPriceInCart = course.price;
 
-
         if (isExistInCart) {
             // return alert('You can add the course into cart only 1 time');
-            return toast.error('Already selected!!! You can add the course into cart only 1 time', {
+            return toast('Already selected!!! You can add the course into cart only once', {
                 position: "top-center",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -43,7 +38,7 @@ const Home = () => {
                 pauseOnHover: true,
                 draggable: true,
                 progress: undefined,
-                theme: "dark",
+                theme: "light",
             });
         }
         else {
@@ -55,7 +50,7 @@ const Home = () => {
             let remainingMyCreditHourInCart = maximumMyCreditHourInCart - totalCreditHourInCart;
             if (totalCreditHourInCart > 20) {
                 // return alert('Sorry, you can not take course maximum 20 credit hour');
-                return toast.info('Sorry! you can not take course more than 20 credit hour', {
+                return toast('Sorry! you can not take course more than 20 credit hours', {
                     position: "top-center",
                     autoClose: 5000,
                     hideProgressBar: false,
@@ -63,10 +58,11 @@ const Home = () => {
                     pauseOnHover: true,
                     draggable: true,
                     progress: undefined,
-                    theme: "dark",
+                    theme: "light",
                 });
             }
             else {
+
                 setRemainingCreditHour(remainingMyCreditHourInCart);
                 setTotalCreditHour(totalCreditHourInCart)
                 setTotalPrice(totalPriceInCart);
@@ -85,7 +81,7 @@ const Home = () => {
                     pauseOnHover: true,
                     draggable: true,
                     progress: undefined,
-                    theme: "dark",
+                    theme: "light",
                 });
             }
             
@@ -93,14 +89,14 @@ const Home = () => {
 
     }
 
-    
-
     return (
         <div className="bg-[#F3F3F3] rounded-3xl">
             <h1 className="pt-12 mb-8 text-2xl font-bold text-[#1C1B1B]">Course Registration</h1>
 
             <div className="flex flex-col lg:flex-row w-full mx-8 md:mx-12 lg:mx-5">
+
                 {/* card starts here */}
+
                 <div className="w-2/3">
 
                     <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-32 lg:grid-cols-3 lg:gap-28 mb-20">
@@ -153,9 +149,11 @@ const Home = () => {
                     </div>
 
                 </div>
+
                 {/* card ends here */}
 
                 {/* cart starts here */}
+
                 <div className="w-1/3 ml-12">
                     <Cart
                         selectCourses={selectCourses}
@@ -163,7 +161,9 @@ const Home = () => {
                         remainingCreditHour={remainingCreditHour}
                         totalPrice={totalPrice}></Cart>
                 </div>
+
                 {/* cart ends here */}
+
             </div>
 
             <ToastContainer />

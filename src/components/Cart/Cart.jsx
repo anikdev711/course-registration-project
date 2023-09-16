@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types'
 
-
 const Cart = ({ selectCourses, totalCreditHour, remainingCreditHour, totalPrice }) => {
     // console.log(selectCourses);
 
