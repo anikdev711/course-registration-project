@@ -35,7 +35,7 @@ const Home = () => {
 
         if (isExistInCart) {
             // return alert('You can add the course into cart only 1 time');
-            toast.warn('You can add the course into cart only 1 time', {
+            return toast.error('Already selected!!! You can add the course into cart only 1 time', {
                 position: "top-center",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -55,7 +55,7 @@ const Home = () => {
             let remainingMyCreditHourInCart = maximumMyCreditHourInCart - totalCreditHourInCart;
             if (totalCreditHourInCart > 20) {
                 // return alert('Sorry, you can not take course maximum 20 credit hour');
-                toast.info('Sorry! you can not take course more than 20 credit hour', {
+                return toast.info('Sorry! you can not take course more than 20 credit hour', {
                     position: "top-center",
                     autoClose: 5000,
                     hideProgressBar: false,
@@ -74,9 +74,10 @@ const Home = () => {
                 setSelectCourses(newSelectCourses);
 
             }
+
             if (remainingMyCreditHourInCart === 0) {
                 // return alert('credit hr is not less than 0');
-                toast.info('Credit hour should not be less than 0', {
+                return toast.warn('Credit hour remaining should not be less than 0', {
                     position: "top-center",
                     autoClose: 5000,
                     hideProgressBar: false,
@@ -87,12 +88,15 @@ const Home = () => {
                     theme: "dark",
                 });
             }
+            
         }
 
     }
 
+    
+
     return (
-        <div className="bg-[#F3F3F3]">
+        <div className="bg-[#F3F3F3] rounded-3xl">
             <h1 className="pt-12 mb-8 text-2xl font-bold text-[#1C1B1B]">Course Registration</h1>
 
             <div className="flex flex-col lg:flex-row w-full mx-8 md:mx-12 lg:mx-5">
@@ -111,7 +115,7 @@ const Home = () => {
 
                                         <p className="text-justify text-sm text-[#1C1B1B] font-normal">{course.details.slice(0, 60)}...
                                             {/* Open the modal using document.getElementById('ID').showModal() method */}
-                                            <button className="btn btn-secondary text-white w-full mt-4 mb-4" onClick={() => document.getElementById(course.id).showModal()}>See more</button>
+                                            <button className="btn btn-neutral font-bold text-white w-full mt-4 mb-4" onClick={() => document.getElementById(course.id).showModal()}>See more</button>
                                             <dialog id={course.id} className="modal modal-bottom sm:modal-middle">
                                                 <div className="modal-box">
                                                     <h3 className="font-bold text-lg">Details</h3>
@@ -119,7 +123,7 @@ const Home = () => {
                                                     <div className="modal-action">
                                                         <form method="dialog">
                                                             {/* if there is a button in form, it will close the modal */}
-                                                            <button className="btn">Close</button>
+                                                            <button className="btn btn-neutral text-white font-bold">Close</button>
                                                         </form>
                                                     </div>
                                                 </div>
@@ -140,7 +144,7 @@ const Home = () => {
                                         </div>
 
                                         <div className="card-actions">
-                                            <button onClick={() => handleMySelectedCourses(course)} className="btn btn-accent text-white w-64">Select</button>
+                                            <button onClick={() => handleMySelectedCourses(course)} className="btn btn-accent text-white w-64 font-bold">Select</button>
                                         </div>
                                     </div>
                                 </div>
