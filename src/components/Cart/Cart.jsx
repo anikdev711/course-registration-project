@@ -34,7 +34,7 @@ const Cart = ({ selectCourses, totalCreditHour, remainingCreditHour, totalPrice 
 };
 
 Cart.propTypes = {
-    selectCourses: PropTypes.object.isRequired,
+    selectCourses: PropTypes.array.isRequired,
     totalCreditHour: PropTypes.number.isRequired,
     remainingCreditHour: PropTypes.number.isRequired,
     totalPrice: PropTypes.number.isRequired
